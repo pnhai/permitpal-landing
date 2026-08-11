@@ -57,6 +57,9 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+/* Topbar is position:sticky and overlaps the top of the viewport, so any
+   in-page anchor target needs this offset or it scrolls in hidden behind it. */
+#download, #features, #screenshots, #regions, #faq { scroll-margin-top: 90px; }
 
 body {
   margin: 0;
