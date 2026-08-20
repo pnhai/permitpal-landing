@@ -1,5 +1,6 @@
 :root {
   --bg: #f4f7fb;
+  --bg-alt: #edf2fa;
   --surface: #ffffff;
   --ink: #10243e;
   --muted: #66768a;
@@ -19,6 +20,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #07111f;
+    --bg-alt: #0c1c30;
     --surface: #101f31;
     --ink: #edf4fc;
     --muted: #91a2b7;
@@ -38,6 +40,7 @@
 }
 :root[data-theme="dark"] {
   --bg: #07111f;
+  --bg-alt: #0c1c30;
   --surface: #101f31;
   --ink: #edf4fc;
   --muted: #91a2b7;
@@ -293,6 +296,14 @@ img { max-width: 100%; display: block; }
 }
 .phone.front { position: relative; z-index: 1; }
 
+@media (prefers-reduced-motion: no-preference) {
+  .phone-stack { animation: phoneFloat 6s ease-in-out infinite; }
+  @keyframes phoneFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+}
+
 /* ---------- stats strip ---------- */
 .stats-strip {
   background: var(--navy);
@@ -315,6 +326,7 @@ img { max-width: 100%; display: block; }
 /* ---------- section heading ---------- */
 .section { padding: 76px 0; }
 .section.tight { padding: 56px 0; }
+.section.alt { background: var(--bg-alt); }
 .section-head { text-align: center; max-width: 620px; margin: 0 auto 46px; }
 .section-head h2 { font-size: 30px; font-weight: 800; margin: 12px 0 12px; letter-spacing: -0.01em; }
 .section-head p { color: var(--muted); font-size: 15px; margin: 0; }
@@ -334,6 +346,12 @@ img { max-width: 100%; display: block; }
   border-radius: 20px;
   padding: 24px 20px;
   box-shadow: var(--shadow);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: color-mix(in srgb, var(--blue) 35%, var(--line));
 }
 .feature-card .icon-chip {
   width: 42px; height: 42px;
@@ -342,7 +360,10 @@ img { max-width: 100%; display: block; }
   color: var(--blue);
   display: flex; align-items: center; justify-content: center;
   margin-bottom: 16px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35);
+  transition: transform .25s ease;
 }
+.feature-card:hover .icon-chip { transform: scale(1.08) rotate(-4deg); }
 .feature-card .icon-chip svg { width: 21px; height: 21px; }
 .feature-card h3 { font-size: 15.5px; font-weight: 800; margin: 0 0 8px; }
 .feature-card p { font-size: 13px; color: var(--muted); margin: 0; }
@@ -364,7 +385,8 @@ img { max-width: 100%; display: block; }
   scroll-snap-align: start;
   text-align: center;
 }
-.showcase-item .phone { padding: 8px; border-radius: 30px; }
+.showcase-item .phone { padding: 8px; border-radius: 30px; transition: transform .3s ease; }
+.showcase-item:hover .phone { transform: translateY(-6px) scale(1.02); }
 .showcase-item .phone img { border-radius: 20px; }
 .showcase-item .phone::before { top: 16px; width: 56px; height: 13px; }
 .showcase-item p {
@@ -390,6 +412,12 @@ img { max-width: 100%; display: block; }
   display: flex;
   align-items: center;
   gap: 12px;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.region-chip:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+  border-color: color-mix(in srgb, var(--blue) 30%, var(--line));
 }
 .region-chip > div:last-child { min-width: 0; }
 .region-chip .code {
@@ -420,6 +448,12 @@ img { max-width: 100%; display: block; }
   border-radius: 18px;
   padding: 22px 18px;
   position: relative;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.step-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+  border-color: color-mix(in srgb, var(--blue) 30%, var(--line));
 }
 .step-card .num {
   width: 30px; height: 30px;
@@ -442,7 +476,9 @@ img { max-width: 100%; display: block; }
   border-radius: 16px;
   padding: 4px 20px;
   margin-bottom: 12px;
+  transition: border-color .2s ease;
 }
+.faq-item:hover { border-color: color-mix(in srgb, var(--blue) 25%, var(--line)); }
 .faq-item summary {
   cursor: pointer;
   list-style: none;
@@ -461,9 +497,18 @@ img { max-width: 100%; display: block; }
   font-weight: 700;
   color: var(--blue);
   flex: none;
+  display: inline-block;
+  transition: transform .25s ease;
 }
-.faq-item[open] summary::after { content: "\2212"; }
+.faq-item[open] summary::after { transform: rotate(45deg); }
 .faq-item p { font-size: 13.5px; color: var(--muted); margin: 0 0 16px; }
+@media (prefers-reduced-motion: no-preference) {
+  .faq-item[open] p { animation: faqIn .25s ease; }
+  @keyframes faqIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: none; }
+  }
+}
 
 /* ---------- final CTA ---------- */
 .final-cta {
@@ -501,3 +546,31 @@ footer .disclaimer {
 }
 footer .links { margin-top: 20px; font-size: 12.5px; display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
 footer .copyright { margin-top: 18px; font-size: 11px; color: var(--muted); }
+
+/* ---------- scroll reveal ----------
+   JS (assets/reveal.js) adds .in-view once each element scrolls into
+   view, and sets --reveal-i per element for a staggered stagger effect
+   within its grid. Guarded by prefers-reduced-motion so elements never
+   get stuck invisible for users who disable animation, and never even
+   start hidden if JS fails to load (see fallback rule below). */
+@media (prefers-reduced-motion: no-preference) {
+  .feature-card, .region-chip, .step-card, .faq-item, .showcase-item, .section-head {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity .6s ease, transform .6s ease;
+    transition-delay: calc(var(--reveal-i, 0) * 70ms);
+  }
+  .feature-card.in-view, .region-chip.in-view, .step-card.in-view,
+  .faq-item.in-view, .showcase-item.in-view, .section-head.in-view {
+    opacity: 1;
+    transform: none;
+  }
+  /* No JS / IntersectionObserver unsupported: reveal.js adds this on
+     <html> as a fallback so content never stays invisible. */
+  html.no-reveal-js .feature-card, html.no-reveal-js .region-chip,
+  html.no-reveal-js .step-card, html.no-reveal-js .faq-item,
+  html.no-reveal-js .showcase-item, html.no-reveal-js .section-head {
+    opacity: 1;
+    transform: none;
+  }
+}
