@@ -217,6 +217,13 @@ img { max-width: 100%; display: block; }
   position: relative;
 }
 .store-badge:hover { transform: translateY(-2px); text-decoration: none; opacity: .92; }
+.store-badge.disabled {
+  cursor: default;
+  opacity: .48;
+  box-shadow: none;
+  user-select: none;
+}
+.store-badge.disabled:hover { transform: none; opacity: .48; }
 .store-badge svg { width: 26px; height: 26px; flex: none; }
 .store-badge .label { display: flex; flex-direction: column; line-height: 1.15; }
 .store-badge .label .small { font-size: 9.5px; font-weight: 600; color: #c9d4e3; text-transform: uppercase; letter-spacing: .4px; }
@@ -228,6 +235,8 @@ img { max-width: 100%; display: block; }
   margin: 2px 0 0;
 }
 .store-note.light { color: #f5c065; }
+.store-note.available { color: var(--mint); }
+.store-note.light.available { color: #79e3c4; }
 @media (max-width: 900px) { .store-note { text-align: center; } }
 
 .trust-row {
